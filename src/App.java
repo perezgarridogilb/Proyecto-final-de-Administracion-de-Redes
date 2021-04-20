@@ -1,4 +1,3 @@
-
 /* Firma Digital */
 import javax.swing.*;
 import javax.swing.border.*;
@@ -56,7 +55,6 @@ public class App extends JFrame implements ActionListener {
         alumno = new JLabel("1.- Alumno");
         alumno.setBounds(20, 20, 200, 20);
         subPanel1.add(alumno);
-
         JLabel imageLogo = new JLabel();
 
         try {
