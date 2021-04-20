@@ -3,17 +3,22 @@
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.awt.*;
+import java.io.*;
+import javax.imageio.*;
 
 public class App extends JFrame implements ActionListener {
 
     private JPanel mainPanel, subPanel1, subPanel2;
-    JLabel FirmaDigital, usuario, alumno, base, matricula, llavePublica, llavePrivada, calificacionEncriptada, calificacion,
-            resultado;
+    JLabel FirmaDigital, usuario, alumno, sistemaEscolar, base, matricula, llavePublica, llavePrivada,
+            calificacionEncriptada, calificacion, resultado;
     JTextField a, b, c, d, eField;
-    JButton crearLlaves, solicitarCalificacion, desencriptarCalificacion;
+    JButton crearLlaves, solicitarCalificacion, generarFuncionHash, encriptarFuncionHash, encriptarMensaje,
+            desencriptarCalificacion;
     Border blackline, etched, raisedbevel, loweredbevel, empty;
     TitledBorder title1;
+    String pth = "/Users/MacBook/Desktop/Proyecto final de Administración de Redes/circled-user-icon-user-pro-icon-11553397069rpnu1bqqup.png";
 
     public App() {
 
@@ -35,7 +40,7 @@ public class App extends JFrame implements ActionListener {
         mainPanel.add(subPanel1);
         mainPanel.add(subPanel2);
 
-        // Setting up the container ready for the components to be added.
+        /* Preparar el contenedor para que se agreguen los componentes */
         Container pane = getContentPane();
         setContentPane(pane);
         pane.add(mainPanel);
@@ -51,10 +56,22 @@ public class App extends JFrame implements ActionListener {
         alumno = new JLabel("1.- Alumno");
         alumno.setBounds(20, 20, 200, 20);
         subPanel1.add(alumno);
-        
-        //usuario.setIcon(new ImageIcon("/Users/MacBook/Desktop/Proyecto final de Administración de Redes/usuario.png"));
 
-        matricula = new JLabel("Matrícula:");
+        JLabel imageLogo = new JLabel();
+
+        try {
+            BufferedImage image = ImageIO.read(new File("./images/usuario.png"));
+            image = (BufferedImage) getScaledImage(image, 37, 37);
+            /* Setear la imagen al JLabel */
+            imageLogo.setIcon(new ImageIcon(image));
+        } catch (IOException ioexception) {
+            System.err.println(ioexception);
+        }
+
+        imageLogo.setBounds(160, 20, 67, 67);
+        subPanel1.add(imageLogo);
+
+        matricula = new JLabel("Nombre:");
         matricula.setBounds(20, 80, 200, 20);
         subPanel1.add(matricula);
 
@@ -78,8 +95,16 @@ public class App extends JFrame implements ActionListener {
         alumno.setBounds(20, 300, 200, 20);
         subPanel1.add(alumno);
 
+        alumno = new JLabel("5.- Encriptar el hash");
+        alumno.setBounds(20, 360, 200, 20);
+        subPanel1.add(alumno);
+
+        alumno = new JLabel("6.- Enviar solicitud");
+        alumno.setBounds(20, 420, 200, 20);
+        subPanel1.add(alumno);
+
         calificacionEncriptada = new JLabel("Calificación encriptada:");
-        calificacionEncriptada.setBounds(20, 450, 200, 20);
+        calificacionEncriptada.setBounds(20, 480, 200, 20);
         subPanel1.add(calificacionEncriptada);
 
         crearLlaves = new JButton("Crear llaves");
@@ -87,19 +112,37 @@ public class App extends JFrame implements ActionListener {
         crearLlaves.setBackground(Color.green);
         subPanel1.add(crearLlaves);
 
-        solicitarCalificacion = new JButton("Solicitar calificación");
-        solicitarCalificacion.setBounds(20, 270, 150, 20);
+        generarFuncionHash = new JButton("Generar");
+        generarFuncionHash.setBounds(20, 330, 90, 20);
+        generarFuncionHash.setBackground(Color.green);
+        subPanel1.add(generarFuncionHash);
+        generarFuncionHash.addActionListener(this);
+
+        encriptarFuncionHash = new JButton("Encriptar");
+        encriptarFuncionHash.setBounds(20, 390, 90, 20);
+        encriptarFuncionHash.setBackground(Color.green);
+        subPanel1.add(encriptarFuncionHash);
+        encriptarFuncionHash.addActionListener(this);
+
+        encriptarMensaje = new JButton("Enviar");
+        encriptarMensaje.setBounds(20, 450, 80, 20);
+        encriptarMensaje.setBackground(Color.green);
+        subPanel1.add(encriptarMensaje);
+        encriptarMensaje.addActionListener(this);
+
+        solicitarCalificacion = new JButton("Solicitar");
+        solicitarCalificacion.setBounds(20, 270, 90, 20);
         solicitarCalificacion.setBackground(Color.green);
         subPanel1.add(solicitarCalificacion);
         solicitarCalificacion.addActionListener(this);
 
-        desencriptarCalificacion = new JButton("Desencriptar calificación");
-        desencriptarCalificacion.setBounds(20, 490, 170, 20);
+        desencriptarCalificacion = new JButton("Desencriptar");
+        desencriptarCalificacion.setBounds(20, 510, 110, 20);
         desencriptarCalificacion.setBackground(Color.green);
         subPanel1.add(desencriptarCalificacion);
 
         calificacion = new JLabel("Calificación:");
-        calificacion.setBounds(20, 530, 200, 20);
+        calificacion.setBounds(20, 540, 200, 20);
         subPanel1.add(calificacion);
 
         b = new JTextField();
@@ -115,11 +158,11 @@ public class App extends JFrame implements ActionListener {
         subPanel1.add(c);
 
         d = new JTextField();
-        d.setBounds(180, 450, 170, 20);
+        d.setBounds(180, 480, 170, 20);
         subPanel1.add(d);
 
         eField = new JTextField();
-        eField.setBounds(180, 530, 40, 20);
+        eField.setBounds(180, 540, 40, 20);
         subPanel1.add(eField);
 
     }
@@ -130,46 +173,70 @@ public class App extends JFrame implements ActionListener {
         subPanel2.setBorder(BorderFactory.createTitledBorder("Sistema"));
         subPanel2.setLayout(null);
 
-        alumno = new JLabel("1.- Identifica el alumno");
-        alumno.setBounds(20, 20, 200, 20);
-        subPanel2.add(alumno);
+        sistemaEscolar = new JLabel("1.- Identifica el alumno");
+        sistemaEscolar.setBounds(20, 20, 200, 20);
+        subPanel2.add(sistemaEscolar);
+
+        JLabel imageLogo = new JLabel();
+
+        try {
+            BufferedImage image = ImageIO.read(new File("./images/usuario.png"));
+            image = (BufferedImage) getScaledImage(image, 37, 37);
+            imageLogo.setIcon(new ImageIcon(image));
+        } catch (IOException ioexception) {
+            System.err.println(ioexception);
+        }
+
+        imageLogo.setBounds(160, 20, 67, 67);
+        subPanel2.add(imageLogo);
+
+        sistemaEscolar = new JLabel("2.- Generar llaves");
+        sistemaEscolar.setBounds(20, 110, 200, 20);
+        subPanel2.add(sistemaEscolar);
 
         llavePublica = new JLabel("Llave pública:");
-        llavePublica.setBounds(20, 170, 200, 20);
+        llavePublica.setBounds(20, 140, 200, 20);
         subPanel2.add(llavePublica);
 
         llavePrivada = new JLabel("Llave privada:");
-        llavePrivada.setBounds(20, 210, 200, 20);
+        llavePrivada.setBounds(20, 180, 200, 20);
         subPanel2.add(llavePrivada);
 
-        alumno = new JLabel("2.- Generar llaves");
-        alumno.setBounds(20, 110, 200, 20);
-        subPanel2.add(alumno);
-
         llavePrivada = new JLabel("Solicitud:");
-        llavePrivada.setBounds(20, 250, 200, 20);
+        llavePrivada.setBounds(20, 220, 200, 20);
         subPanel2.add(llavePrivada);
 
         llavePrivada = new JLabel("Calificación a enviar:");
-        llavePrivada.setBounds(20, 290, 200, 20);
+        llavePrivada.setBounds(20, 260, 200, 20);
         subPanel2.add(llavePrivada);
 
         a = new JTextField();
-        a.setBounds(130, 170, 170, 20);
+        a.setBounds(130, 140, 170, 20);
         subPanel2.add(a);
 
         c = new JTextField();
-        c.setBounds(130, 210, 170, 20);
+        c.setBounds(130, 180, 170, 20);
         subPanel2.add(c);
 
         d = new JTextField();
-        d.setBounds(130, 250, 170, 20);
+        d.setBounds(130, 220, 170, 20);
         subPanel2.add(d);
 
         eField = new JTextField();
-        eField.setBounds(160, 290, 40, 20);
+        eField.setBounds(160, 260, 40, 20);
         subPanel2.add(eField);
 
+    }
+
+    private Image getScaledImage(Image srcImg, int w, int h) {
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+
+        return resizedImg;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -177,7 +244,7 @@ public class App extends JFrame implements ActionListener {
         if (e.getSource() == solicitarCalificacion) {
 
             String res1 = "a";
-            eField.setText(res1); 
+            eField.setText(res1);
 
         }
     }
