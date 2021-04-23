@@ -11,9 +11,7 @@ public class FirmaDigital {
     private String mensaje;
     private byte[] mensajeCodificado;
     //constructor
-    FirmaDigital(String mensaje){
-        this.mensaje = mensaje;
-    }
+    
     //metodos
 
     public int hash(){
@@ -31,5 +29,8 @@ public class FirmaDigital {
 
     public byte[] getMensajeCodificado(){
         return this.mensajeCodificado;
+    }
+    public void setMensaje(String mensaje){
+        this.mensaje = mensaje;
     }
 }

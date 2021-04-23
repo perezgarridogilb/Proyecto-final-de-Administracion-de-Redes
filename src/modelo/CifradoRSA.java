@@ -12,8 +12,10 @@ public class CifradoRSA {
     private static Cipher rsa;
     private PublicKey miLlavePublica;
     private PrivateKey miLlavePrivada;
-    //constructor
-    CifradoRSA(){
+
+    //metodos
+    //metodo que nos genera las llaves
+    public int generarLlaves(){
         try{
             KeyPairGenerator generadorKeys = KeyPairGenerator.getInstance("RSA");
             KeyPair miKey = generadorKeys.generateKeyPair();
@@ -22,8 +24,8 @@ public class CifradoRSA {
         }catch(Exception err){
             System.out.println("Error de: " + err.getMessage());
         }
+        return 0;
     }
-    //metodos
     //metodo que nos ayudará a encriptar un mensaje con RSA
     public byte[] encriptar(byte[] mensaje){
         byte[] encriptadoRSA;
