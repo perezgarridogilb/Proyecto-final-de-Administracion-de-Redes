@@ -1,7 +1,7 @@
 package modelo;
 import javax.crypto.*;
 import java.security.*;
-
+import controlador.Controlador;
 /**
  * En esta clase pondremos funciones que nos permiten encriptar
  * cualquier mensaje y desencriptarlo así como de generar llaves publicas y privadas
@@ -12,7 +12,7 @@ public class CifradoRSA {
     private static Cipher rsa;
     private PublicKey miLlavePublica;
     private PrivateKey miLlavePrivada;
-
+    private Controlador miControlador;
     //metodos
     //metodo que nos genera las llaves
     public int generarLlaves(){
@@ -70,5 +70,7 @@ public class CifradoRSA {
 	public PrivateKey getLlavePrivada() {
 		return this.miLlavePrivada;
 	}
-
+    public void setControlador(Controlador miControlador){
+        this.miControlador = miControlador;
+    }
 }

@@ -1,3 +1,4 @@
+package vista;
 /* Firma Digital */
 import javax.swing.*;
 import javax.swing.border.*;
@@ -6,9 +7,10 @@ import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.*;
 import javax.imageio.*;
+import controlador.Controlador;
 
 public class App extends JFrame implements ActionListener {
-
+    private Controlador miControlador;
     private JPanel mainPanel, subPanel1, subPanel2;
     JLabel FirmaDigital, usuario, alumno, sistemaEscolar, base, matricula, llavePublica, llavePrivada,
             calificacionEncriptada, calificacion, resultado;
@@ -43,7 +45,6 @@ public class App extends JFrame implements ActionListener {
         Container pane = getContentPane();
         setContentPane(pane);
         pane.add(mainPanel);
-        setVisible(true);
     }
 
     public void alumno() {
@@ -247,18 +248,9 @@ public class App extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        /* Crear y mostrar el diálogo */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                try {
-                    javax.swing.UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                new App();
-            }
-        });
+    //metodos setter
+    public void setControlador(Controlador miControlador){
+        this.miControlador = miControlador;
     }
+
 }

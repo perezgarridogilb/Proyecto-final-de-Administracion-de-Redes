@@ -1,6 +1,6 @@
 package modelo;
 import java.security.*;
-
+import controlador.Controlador;
 /*
     Esta clase nos sirve para poder hacer la firma digital y usar la función hash
     al nombre de la persona que requiera de su calificacion
@@ -10,6 +10,7 @@ public class FirmaDigital {
     //atributos
     private String mensaje;
     private byte[] mensajeCodificado;
+    private Controlador miControlador;
     //constructor
     
     //metodos
@@ -32,5 +33,8 @@ public class FirmaDigital {
     }
     public void setMensaje(String mensaje){
         this.mensaje = mensaje;
+    }
+    public void setControlador(Controlador miControlador){
+        this.miControlador = miControlador;
     }
 }
