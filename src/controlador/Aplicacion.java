@@ -2,6 +2,8 @@ package controlador;
 
 import modelo.FirmaDigital;
 import modelo.CifradoRSA;
+import modelo.Alumno;
+import modelo.Sistema;
 import vista.App;
 
 /**
@@ -15,18 +17,20 @@ public class Aplicacion {
         FirmaDigital miFirmaDigital = new FirmaDigital();
         CifradoRSA miCifradoAlumno = new CifradoRSA();
         CifradoRSA miCifradoSistema = new CifradoRSA();
+        Alumno miAlumno = new Alumno(miCifradoAlumno);
+        Sistema miSistema = new Sistema(miCifradoSistema);
         App miApp = new App();
 
         //hacemos la relacion del controlador con las demas clases y viceversa
         miControlador.setFirmaDigital(miFirmaDigital);
-        miControlador.setCifradoRSAAlumno(miCifradoAlumno);
-        miControlador.setCifradoRSASistema(miCifradoSistema);
         miControlador.setAppVista(miApp);
+        miControlador.setAlumno(miAlumno);
+        miControlador.setSistema(miSistema);
 
         miApp.setControlador(miControlador);
         miFirmaDigital.setControlador(miControlador);
-        miCifradoAlumno.setControlador(miControlador);
-        miCifradoSistema.setControlador(miControlador);
+        miAlumno.setControlador(miControlador);
+        miSistema.setControlador(miControlador);
         //hacemos visible nuestra aplicacion es decir la vista
         miApp.setVisible(true);
     }

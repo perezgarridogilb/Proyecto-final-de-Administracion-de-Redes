@@ -6,6 +6,10 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.*;
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+
 import javax.imageio.*;
 import controlador.Controlador;
 
@@ -110,6 +114,7 @@ public class App extends JFrame implements ActionListener {
         crearLlaves.setBounds(20, 140, 100, 20);
         crearLlaves.setBackground(Color.green);
         subPanel1.add(crearLlaves);
+        crearLlaves.addActionListener(this);
 
         generarFuncionHash = new JButton("Generar");
         generarFuncionHash.setBounds(20, 330, 90, 20);
@@ -240,11 +245,13 @@ public class App extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == solicitarCalificacion) {
-
-            String res1 = "a";
-            eField.setText(res1);
-
+        if (e.getSource() == crearLlaves) {
+            System.out.println("Hola mundo:");
+            KeyPair llavesAlumno = miControlador.generarLlavesAlumno();
+            PublicKey llavePublica = llavesAlumno.getPublic();
+            PrivateKey llavePrivada = llavesAlumno.getPrivate();
+            System.out.println("Publica: " + llavePublica.serialVersionUID);
+            System.out.println("Privada: " + llavePrivada.serialVersionUID);
         }
     }
 
