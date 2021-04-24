@@ -243,17 +243,61 @@ public class App extends JFrame implements ActionListener {
         return resizedImg;
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent evento) {
+        //cuando se de click al boton de crear llaves
+        if (evento.getSource() == crearLlaves) {
+            generaLlaves();
+        }
+        //cuando se de click al boton de generar hash
+        if(evento.getSource() == this.generarFuncionHash){
+            generarHash();
+        }
+        //cuando se de click al boton de encriptar
+        if(evento.getSource() == this.encriptarFuncionHash){
+            encriptarAlumno();
+        }
 
-        if (e.getSource() == crearLlaves) {
-            System.out.println("Hola mundo:");
-            KeyPair llavesAlumno = miControlador.generarLlavesAlumno();
-            PublicKey llavePublica = llavesAlumno.getPublic();
-            PrivateKey llavePrivada = llavesAlumno.getPrivate();
-            System.out.println("Publica: " + llavePublica.serialVersionUID);
-            System.out.println("Privada: " + llavePrivada.serialVersionUID);
+    }
+
+    //metodos
+    //metodo para poder crear las llaves
+    private void generaLlaves(){
+        //llaves del alumno
+        KeyPair llavesAlumno = miControlador.generarLlavesAlumno();
+        PublicKey llavePublicaAlumno = llavesAlumno.getPublic();
+        PrivateKey llavePrivadaAlumno = llavesAlumno.getPrivate();
+        //llaves del sistema
+        KeyPair llavesSistema = miControlador.generarLlavesSistema();
+        PublicKey llavePublicaSistema = llavesSistema.getPublic();
+        PrivateKey llavePrivadaSistema = llavesSistema.getPrivate();
+        //validamos que no se haya generado eror
+        if(llavesAlumno == null){
+            JOptionPane.showMessageDialog(null, "No se generaron las llaves","Error llaves",JOptionPane.ERROR_MESSAGE);
+        }else{
+            //aqui debemos de poner las llaves en los text field
+            JOptionPane.showMessageDialog(null, "Se generaron correctamente","Llaves listas",JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    //metodo para generar nuestra firma digital
+    private void generarHash(){
+        String nombre = b.getText();
+        int verificar = miControlador.generarHash(nombre);
+        if(verificar == -1){
+            JOptionPane.showMessageDialog(null, "Error al aplicar hash", "Falla firma digital", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "Se genero correctamente", "Firma digital", JOptionPane.YES_OPTION);
+        }
+    }
+    //metodo para encriptar con RSA la firma digital
+    private void encriptarAlumno(){
+        int verificar = miControlador.encriptarAlumno();
+        if(verificar == 1){
+            JOptionPane.showMessageDialog(null, "Se encripto de manera correcta", "RSA", JOptionPane.YES_OPTION);
+        }else{
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al encriptar la firma", "RSA", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     //metodos setter
     public void setControlador(Controlador miControlador){

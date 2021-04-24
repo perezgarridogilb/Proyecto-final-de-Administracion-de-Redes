@@ -19,6 +19,9 @@ public class Alumno {
     public KeyPair generarLlaves(){
         return miCifradoRSA.generarLlaves();
     }
+    public byte[] encriptar(byte[] mensaje){
+        return miCifradoRSA.encriptar(mensaje);
+    }
 
     //metodos getter and setter
     public void setControlador(Controlador miControlador){

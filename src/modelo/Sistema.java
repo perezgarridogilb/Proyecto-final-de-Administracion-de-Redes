@@ -1,4 +1,6 @@
 package modelo;
+import java.security.KeyPair;
+
 import controlador.Controlador;
 /**
  * Esta clase es la que se encarga de desempeñar la funcion de servidor
@@ -13,7 +15,12 @@ public class Sistema {
     public Sistema(CifradoRSA miCifrado){
         this.miCifradoRSA = miCifrado;
     }
+    
     //metodos
+    public KeyPair generarLlaves(){
+        return miCifradoRSA.generarLlaves();
+    }
+
     //metodos getter and setter
     public void setControlador(Controlador miControlador){
         this.miControlador = miControlador;

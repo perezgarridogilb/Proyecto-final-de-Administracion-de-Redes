@@ -12,7 +12,6 @@ public class FirmaDigital {
     private byte[] mensajeCodificado;
     private Controlador miControlador;
     //constructor
-    
     //metodos
 
     public int hash(){
