@@ -271,7 +271,7 @@ public class App extends JFrame implements ActionListener {
         PublicKey llavePublicaSistema = llavesSistema.getPublic();
         PrivateKey llavePrivadaSistema = llavesSistema.getPrivate();
         //validamos que no se haya generado eror
-        if(llavesAlumno == null){
+        if(llavesAlumno == null || llavesSistema == null){
             JOptionPane.showMessageDialog(null, "No se generaron las llaves","Error llaves",JOptionPane.ERROR_MESSAGE);
         }else{
             //aqui debemos de poner las llaves en los text field
