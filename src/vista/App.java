@@ -19,7 +19,7 @@ public class App extends JFrame implements ActionListener {
     private JPanel mainPanel, subPanel1, subPanel2;
     JLabel FirmaDigital, usuario, alumno, sistemaEscolar, base, matricula, llavePublica, llavePrivada,
             calificacionEncriptada, calificacion, resultado;
-    JTextField a, b, c, d, eField;
+    JTextField textFieldNombreAlumno, textFieldLLavePublicaAlumno, textFieldLLavePrivadaAlumno, textFieldCalificacionEncriptada,textFieldCalificacion,textFieldLLavePublicaServidor, textFieldLLavePrivadaServidor, textFieldSolicitudServidor, textFieldCalificacionAEnviarServidor;
     JButton crearLlaves, solicitarCalificacion, generarFuncionHash, encriptarFuncionHash, encriptarMensaje,
             desencriptarCalificacion;
     Border blackline, etched, raisedbevel, loweredbevel, empty;
@@ -35,7 +35,7 @@ public class App extends JFrame implements ActionListener {
 
         /* Construyendo JPanel principal con GridLayout de 1 fila y 2 columnas */
         mainPanel = new JPanel();
-        title1 = BorderFactory.createTitledBorder(blackline, "AdministraciÃ³n de Redes");
+        title1 = BorderFactory.createTitledBorder(blackline, "Administracion de Redes");
         title1.setTitleJustification(TitledBorder.CENTER);
         mainPanel.setBorder(title1);
         mainPanel.setLayout(new GridLayout(1, 2));
@@ -83,7 +83,7 @@ public class App extends JFrame implements ActionListener {
         alumno.setBounds(20, 110, 200, 20);
         subPanel1.add(alumno);
 
-        llavePublica = new JLabel("Llave pÃºblica:");
+        llavePublica = new JLabel("Llave publica:");
         llavePublica.setBounds(20, 170, 200, 20);
         subPanel1.add(llavePublica);
 
@@ -91,7 +91,7 @@ public class App extends JFrame implements ActionListener {
         llavePrivada.setBounds(20, 210, 200, 20);
         subPanel1.add(llavePrivada);
 
-        alumno = new JLabel("3.- Solicitar calificaciÃ³n");
+        alumno = new JLabel("3.- Solicitar calificacion");
         alumno.setBounds(20, 240, 200, 20);
         subPanel1.add(alumno);
 
@@ -107,7 +107,7 @@ public class App extends JFrame implements ActionListener {
         alumno.setBounds(20, 420, 200, 20);
         subPanel1.add(alumno);
 
-        calificacionEncriptada = new JLabel("CalificaciÃ³n encriptada:");
+        calificacionEncriptada = new JLabel("Calificacion encriptada:");
         calificacionEncriptada.setBounds(20, 480, 200, 20);
         subPanel1.add(calificacionEncriptada);
 
@@ -146,29 +146,31 @@ public class App extends JFrame implements ActionListener {
         desencriptarCalificacion.setBackground(Color.green);
         subPanel1.add(desencriptarCalificacion);
 
-        calificacion = new JLabel("CalificaciÃ³n:");
+        calificacion = new JLabel("Calificacion:");
         calificacion.setBounds(20, 540, 200, 20);
         subPanel1.add(calificacion);
 
-        b = new JTextField();
-        b.setBounds(130, 80, 170, 20);
-        subPanel1.add(b);
+        /* Aquí están los JTextField del alumno */
+        
+        textFieldNombreAlumno = new JTextField();
+        textFieldNombreAlumno.setBounds(130, 80, 170, 20);
+        subPanel1.add(textFieldNombreAlumno);
 
-        a = new JTextField();
-        a.setBounds(130, 170, 170, 20);
-        subPanel1.add(a);
+        textFieldLLavePublicaAlumno = new JTextField();
+        textFieldLLavePublicaAlumno.setBounds(130, 170, 170, 20);
+        subPanel1.add(textFieldLLavePublicaAlumno);
 
-        c = new JTextField();
-        c.setBounds(130, 210, 170, 20);
-        subPanel1.add(c);
+        textFieldLLavePrivadaAlumno = new JTextField();
+        textFieldLLavePrivadaAlumno.setBounds(130, 210, 170, 20);
+        subPanel1.add(textFieldLLavePrivadaAlumno);
 
-        d = new JTextField();
-        d.setBounds(180, 480, 170, 20);
-        subPanel1.add(d);
+        textFieldCalificacionEncriptada = new JTextField();
+        textFieldCalificacionEncriptada.setBounds(180, 480, 170, 20);
+        subPanel1.add(textFieldCalificacionEncriptada);
 
-        eField = new JTextField();
-        eField.setBounds(180, 540, 40, 20);
-        subPanel1.add(eField);
+        textFieldCalificacion  = new JTextField();
+        textFieldCalificacion.setBounds(180, 540, 40, 20);
+        subPanel1.add(textFieldCalificacion);
 
     }
 
@@ -199,7 +201,7 @@ public class App extends JFrame implements ActionListener {
         sistemaEscolar.setBounds(20, 110, 200, 20);
         subPanel2.add(sistemaEscolar);
 
-        llavePublica = new JLabel("Llave pÃºblica:");
+        llavePublica = new JLabel("Llave publica:");
         llavePublica.setBounds(20, 140, 200, 20);
         subPanel2.add(llavePublica);
 
@@ -211,25 +213,27 @@ public class App extends JFrame implements ActionListener {
         llavePrivada.setBounds(20, 220, 200, 20);
         subPanel2.add(llavePrivada);
 
-        llavePrivada = new JLabel("CalificaciÃ³n a enviar:");
+        llavePrivada = new JLabel("Calificacion a enviar:");
         llavePrivada.setBounds(20, 260, 200, 20);
         subPanel2.add(llavePrivada);
 
-        a = new JTextField();
-        a.setBounds(130, 140, 170, 20);
-        subPanel2.add(a);
+        /* Aquí están los JTextField del servicio escolar */
+        
+        textFieldLLavePublicaServidor = new JTextField();
+        textFieldLLavePublicaServidor.setBounds(130, 140, 170, 20);
+        subPanel2.add(textFieldLLavePublicaServidor);
 
-        c = new JTextField();
-        c.setBounds(130, 180, 170, 20);
-        subPanel2.add(c);
+        textFieldLLavePrivadaServidor = new JTextField();
+        textFieldLLavePrivadaServidor.setBounds(130, 180, 170, 20);
+        subPanel2.add(textFieldLLavePrivadaServidor);
 
-        d = new JTextField();
-        d.setBounds(130, 220, 170, 20);
-        subPanel2.add(d);
+        textFieldSolicitudServidor = new JTextField();
+        textFieldSolicitudServidor.setBounds(130, 220, 170, 20);
+        subPanel2.add(textFieldSolicitudServidor);
 
-        eField = new JTextField();
-        eField.setBounds(160, 260, 40, 20);
-        subPanel2.add(eField);
+        textFieldCalificacionAEnviarServidor = new JTextField();
+        textFieldCalificacionAEnviarServidor.setBounds(160, 260, 40, 20);
+        subPanel2.add(textFieldCalificacionAEnviarServidor);
 
     }
 
@@ -295,7 +299,7 @@ public class App extends JFrame implements ActionListener {
     
     //metodo para generar nuestra firma digital
     private void generarHash(){
-        String nombre = b.getText();
+        String nombre = textFieldNombreAlumno.getText();
         int verificar = miControlador.generarHash(nombre);
         if(verificar == -1){
             JOptionPane.showMessageDialog(null, "Error al aplicar hash", "Falla firma digital", JOptionPane.ERROR_MESSAGE);
@@ -330,7 +334,7 @@ public class App extends JFrame implements ActionListener {
     //metodo para solicitar la calificacion desde nuestro sistema
     private void solicitar() {
     	//le pasamos la calificacion desde el text field que la vaya a contener
-    	byte[] calificacion = miControlador.solicitarCalificacion(a.getText());
+    	byte[] calificacion = miControlador.solicitarCalificacion(textFieldLLavePublicaServidor.getText());
     	if(calificacion != null) {
     		//debemos de poner la calificacion encriptada en el text field que corresponda
     		
