@@ -1,5 +1,6 @@
 package modelo;
 import java.security.KeyPair;
+import java.security.PrivateKey;
 
 import controlador.Controlador;
 /**
@@ -22,9 +23,15 @@ public class Alumno {
     public byte[] encriptar(byte[] mensaje){
         return miCifradoRSA.encriptar(mensaje);
     }
+    public byte[] desencriptarCalificacion(byte[] calificacion, PrivateKey llavePrivada) {
+    	return miCifradoRSA.desencriptar(calificacion, llavePrivada);
+    }
 
     //metodos getter and setter
     public void setControlador(Controlador miControlador){
         this.miControlador = miControlador;
+    }
+    public PrivateKey getLlavePrivada(){
+        return this.miCifradoRSA.getLlavePrivada();
     }
 }

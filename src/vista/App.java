@@ -9,6 +9,7 @@ import java.io.*;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.StringTokenizer;
 
 import javax.imageio.*;
 import controlador.Controlador;
@@ -23,7 +24,7 @@ public class App extends JFrame implements ActionListener {
             desencriptarCalificacion;
     Border blackline, etched, raisedbevel, loweredbevel, empty;
     TitledBorder title1;
-    String pth = "/Users/MacBook/Desktop/Proyecto final de Administración de Redes/circled-user-icon-user-pro-icon-11553397069rpnu1bqqup.png";
+    String pth = "/Users/MacBook/Desktop/Proyecto final de AdministracioÌ�n de Redes/circled-user-icon-user-pro-icon-11553397069rpnu1bqqup.png";
 
     public App() {
 
@@ -34,7 +35,7 @@ public class App extends JFrame implements ActionListener {
 
         /* Construyendo JPanel principal con GridLayout de 1 fila y 2 columnas */
         mainPanel = new JPanel();
-        title1 = BorderFactory.createTitledBorder(blackline, "Administración de Redes");
+        title1 = BorderFactory.createTitledBorder(blackline, "AdministraciÃ³n de Redes");
         title1.setTitleJustification(TitledBorder.CENTER);
         mainPanel.setBorder(title1);
         mainPanel.setLayout(new GridLayout(1, 2));
@@ -82,7 +83,7 @@ public class App extends JFrame implements ActionListener {
         alumno.setBounds(20, 110, 200, 20);
         subPanel1.add(alumno);
 
-        llavePublica = new JLabel("Llave pública:");
+        llavePublica = new JLabel("Llave pÃºblica:");
         llavePublica.setBounds(20, 170, 200, 20);
         subPanel1.add(llavePublica);
 
@@ -90,7 +91,7 @@ public class App extends JFrame implements ActionListener {
         llavePrivada.setBounds(20, 210, 200, 20);
         subPanel1.add(llavePrivada);
 
-        alumno = new JLabel("3.- Solicitar calificación");
+        alumno = new JLabel("3.- Solicitar calificaciÃ³n");
         alumno.setBounds(20, 240, 200, 20);
         subPanel1.add(alumno);
 
@@ -106,7 +107,7 @@ public class App extends JFrame implements ActionListener {
         alumno.setBounds(20, 420, 200, 20);
         subPanel1.add(alumno);
 
-        calificacionEncriptada = new JLabel("Calificación encriptada:");
+        calificacionEncriptada = new JLabel("CalificaciÃ³n encriptada:");
         calificacionEncriptada.setBounds(20, 480, 200, 20);
         subPanel1.add(calificacionEncriptada);
 
@@ -145,7 +146,7 @@ public class App extends JFrame implements ActionListener {
         desencriptarCalificacion.setBackground(Color.green);
         subPanel1.add(desencriptarCalificacion);
 
-        calificacion = new JLabel("Calificación:");
+        calificacion = new JLabel("CalificaciÃ³n:");
         calificacion.setBounds(20, 540, 200, 20);
         subPanel1.add(calificacion);
 
@@ -198,7 +199,7 @@ public class App extends JFrame implements ActionListener {
         sistemaEscolar.setBounds(20, 110, 200, 20);
         subPanel2.add(sistemaEscolar);
 
-        llavePublica = new JLabel("Llave pública:");
+        llavePublica = new JLabel("Llave pÃºblica:");
         llavePublica.setBounds(20, 140, 200, 20);
         subPanel2.add(llavePublica);
 
@@ -210,7 +211,7 @@ public class App extends JFrame implements ActionListener {
         llavePrivada.setBounds(20, 220, 200, 20);
         subPanel2.add(llavePrivada);
 
-        llavePrivada = new JLabel("Calificación a enviar:");
+        llavePrivada = new JLabel("CalificaciÃ³n a enviar:");
         llavePrivada.setBounds(20, 260, 200, 20);
         subPanel2.add(llavePrivada);
 
@@ -256,10 +257,23 @@ public class App extends JFrame implements ActionListener {
         if(evento.getSource() == this.encriptarFuncionHash){
             encriptarAlumno();
         }
+        //cuando se da click al boton de enviar
+        if(evento.getSource() == this.encriptarMensaje){
+        	enviar();
+        }
+        //cuando se da click al boton solicitar
+        if(evento.getSource() == this.solicitarCalificacion) {
+        	solicitar();
+        }
+        //cuando se da click al boton desencriptar
+        if(evento.getSource() == this.desencriptarCalificacion) {
+        	desencriptarCalificacion();
+        }
 
     }
 
     //metodos
+    
     //metodo para poder crear las llaves
     private void generaLlaves(){
         //llaves del alumno
@@ -278,6 +292,7 @@ public class App extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Se generaron correctamente","Llaves listas",JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
     //metodo para generar nuestra firma digital
     private void generarHash(){
         String nombre = b.getText();
@@ -285,19 +300,59 @@ public class App extends JFrame implements ActionListener {
         if(verificar == -1){
             JOptionPane.showMessageDialog(null, "Error al aplicar hash", "Falla firma digital", JOptionPane.ERROR_MESSAGE);
         }else{
-            JOptionPane.showMessageDialog(null, "Se genero correctamente", "Firma digital", JOptionPane.YES_OPTION);
+            JOptionPane.showMessageDialog(null, "Se genero correctamente", "Firma digital", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
     //metodo para encriptar con RSA la firma digital
     private void encriptarAlumno(){
         int verificar = miControlador.encriptarAlumno();
         if(verificar == 1){
-            JOptionPane.showMessageDialog(null, "Se encripto de manera correcta", "RSA", JOptionPane.YES_OPTION);
+            JOptionPane.showMessageDialog(null, "Se encripto de manera correcta", "RSA", JOptionPane.INFORMATION_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(null, "Ocurrio un error al encriptar la firma", "RSA", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    //metodo para enviar datos al sistema
+    private void enviar(){
+        String [] alumno = miControlador.enviar();
+        if(alumno != null) {
+        	//debemos de poner la calificacion en el text field indicado y el nombre del alumno tambien lo debemos de poner en el text field
+        	
+        	JOptionPane.showMessageDialog(null, "Ya puede solicitar calificacion","Calificacion lista",JOptionPane.INFORMATION_MESSAGE);
+        }else {
+        	//mostramos un erro
+        	JOptionPane.showMessageDialog(null,"Fallo al enviar el mensaje" , "Envio", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    //metodo para solicitar la calificacion desde nuestro sistema
+    private void solicitar() {
+    	//le pasamos la calificacion desde el text field que la vaya a contener
+    	byte[] calificacion = miControlador.solicitarCalificacion(a.getText());
+    	if(calificacion != null) {
+    		//debemos de poner la calificacion encriptada en el text field que corresponda
+    		
+    		JOptionPane.showMessageDialog(null, "Puede desencriptarla","Calificacion",JOptionPane.INFORMATION_MESSAGE);
+    	}else {
+    		//mostramos mensaje de algun error
+    		JOptionPane.showMessageDialog(null,"No se pudo obtener encriptada","Calificacion",JOptionPane.ERROR_MESSAGE);
+    	}
+    }
+    
+    //metodo para desencriptar calificacion
+    private void desencriptarCalificacion() {
+    	byte[] calDesencriptada = miControlador.desencriptarCalificacion();
+    	if(calDesencriptada == null) {
+    		JOptionPane.showMessageDialog(null,"No se pudo desencriptar","Calificacion",JOptionPane.ERROR_MESSAGE);
+    	}
+    	else {
+    		//ponemos en text field la calificacion correspondiente
+    		
+    	}
+    	
+    }
 
     //metodos setter
     public void setControlador(Controlador miControlador){

@@ -11,6 +11,7 @@ public class Controlador {
     private Alumno miAlumno;
     private Sistema miSistema;
     private byte[] firmaEncriptada;
+    private byte[] calificacionEncriptada;
     //constructor
     
     //metodos
@@ -21,7 +22,7 @@ public class Controlador {
     public KeyPair generarLlavesSistema(){
         return miSistema.generarLlaves();
     }
-    
+
     public int generarHash(String nombreAlumno){
         miFirmaDigital.setMensaje(nombreAlumno);
         return miFirmaDigital.hash();
@@ -36,6 +37,18 @@ public class Controlador {
         }
     }
 
+    public String[] enviar(){
+        return miSistema.recibirAlumno(firmaEncriptada,miAlumno.getLlavePrivada());
+    }
+    
+    public byte[] solicitarCalificacion(String calificacion) {
+    	this.calificacionEncriptada = miSistema.calificacionEncriptada(calificacion);
+    	return this.calificacionEncriptada;
+    }
+    public byte[] desencriptarCalificacion() {
+    	return miAlumno.desencriptarCalificacion(this.calificacionEncriptada,miSistema.getLlavePrivada());
+    }
+
     //metodos setter
     public void setFirmaDigital(FirmaDigital firmaDigital){
         this.miFirmaDigital = firmaDigital;
@@ -48,5 +61,8 @@ public class Controlador {
     }
     public void setSistema(Sistema miSistema){
         this.miSistema = miSistema;
+    }
+    public byte[] getCalificacionEncriptada() {
+    	return this.calificacionEncriptada;
     }
 }
