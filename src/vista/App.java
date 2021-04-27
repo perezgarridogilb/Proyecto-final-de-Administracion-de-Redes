@@ -35,7 +35,8 @@ public class App extends JFrame implements ActionListener {
 
         /* Construyendo JPanel principal con GridLayout de 1 fila y 2 columnas */
         mainPanel = new JPanel();
-        title1 = BorderFactory.createTitledBorder(blackline, "Administracion de Redes");
+        mainPanel.setBackground(Color.decode("#fefea2"));
+        title1 = BorderFactory.createTitledBorder(blackline, "Administraci\u00f3n de Redes");
         title1.setTitleJustification(TitledBorder.CENTER);
         mainPanel.setBorder(title1);
         mainPanel.setLayout(new GridLayout(1, 2));
@@ -55,6 +56,7 @@ public class App extends JFrame implements ActionListener {
     public void alumno() {
 
         subPanel1 = new JPanel();
+        subPanel1.setBackground(Color.decode("#fefea2"));
         subPanel1.setBorder(BorderFactory.createTitledBorder("Alumno"));
         subPanel1.setLayout(null);
 
@@ -75,6 +77,9 @@ public class App extends JFrame implements ActionListener {
         imageLogo.setBounds(160, 20, 67, 67);
         subPanel1.add(imageLogo);
 
+        imageLogo.setBounds(160, 20, 67, 67);
+        subPanel1.add(imageLogo);
+
         matricula = new JLabel("Nombre:");
         matricula.setBounds(20, 80, 200, 20);
         subPanel1.add(matricula);
@@ -83,94 +88,104 @@ public class App extends JFrame implements ActionListener {
         alumno.setBounds(20, 110, 200, 20);
         subPanel1.add(alumno);
 
-        llavePublica = new JLabel("Llave publica:");
-        llavePublica.setBounds(20, 170, 200, 20);
+        llavePublica = new JLabel("Llave p\u00fablica:");
+        llavePublica.setBounds(20, 180, 200, 20);
         subPanel1.add(llavePublica);
 
         llavePrivada = new JLabel("Llave privada:");
-        llavePrivada.setBounds(20, 210, 200, 20);
+        llavePrivada.setBounds(20, 220, 200, 20);
         subPanel1.add(llavePrivada);
 
         alumno = new JLabel("3.- Solicitar calificacion");
-        alumno.setBounds(20, 240, 200, 20);
+        alumno.setBounds(20, 250, 200, 20);
         subPanel1.add(alumno);
 
         alumno = new JLabel("4.- Generar hash");
-        alumno.setBounds(20, 300, 200, 20);
+        alumno.setBounds(20, 310, 200, 20);
         subPanel1.add(alumno);
 
         alumno = new JLabel("5.- Encriptar el hash");
-        alumno.setBounds(20, 360, 200, 20);
+        alumno.setBounds(20, 370, 200, 20);
         subPanel1.add(alumno);
 
         alumno = new JLabel("6.- Enviar solicitud");
-        alumno.setBounds(20, 420, 200, 20);
+        alumno.setBounds(20, 430, 200, 20);
         subPanel1.add(alumno);
 
-        calificacionEncriptada = new JLabel("Calificacion encriptada:");
-        calificacionEncriptada.setBounds(20, 480, 200, 20);
+        calificacionEncriptada = new JLabel("Calificaci\u00f3n encriptada:");
+        calificacionEncriptada.setBounds(20, 490, 200, 20);
         subPanel1.add(calificacionEncriptada);
+        
+        calificacion = new JLabel("Calificaci\u00f3n:");
+        calificacion.setBounds(20, 550, 200, 20);
+        subPanel1.add(calificacion);
 
         crearLlaves = new JButton("Crear llaves");
-        crearLlaves.setBounds(20, 140, 100, 20);
+        crearLlaves.setBounds(20, 135, 100, 30);
         crearLlaves.setBackground(Color.green);
         subPanel1.add(crearLlaves);
         crearLlaves.addActionListener(this);
 
         generarFuncionHash = new JButton("Generar");
-        generarFuncionHash.setBounds(20, 330, 90, 20);
+        File archivoImagenHash = new File("./images/baseline_pin_black_48dp.png");
+        generarFuncionHash.setIcon(new ImageIcon(archivoImagenHash.getPath()));
+        generarFuncionHash.setBounds(20, 335, 105, 30);
         generarFuncionHash.setBackground(Color.green);
         subPanel1.add(generarFuncionHash);
         generarFuncionHash.addActionListener(this);
 
         encriptarFuncionHash = new JButton("Encriptar");
-        encriptarFuncionHash.setBounds(20, 390, 90, 20);
+        File archivoImagenEncripta = new File("./images/key.png");
+        encriptarFuncionHash.setIcon(new ImageIcon(archivoImagenEncripta.getPath()));
+        encriptarFuncionHash.setBounds(20, 395, 110, 30);
         encriptarFuncionHash.setBackground(Color.green);
         subPanel1.add(encriptarFuncionHash);
         encriptarFuncionHash.addActionListener(this);
 
         encriptarMensaje = new JButton("Enviar");
-        encriptarMensaje.setBounds(20, 450, 80, 20);
+        File archivoImagen = new File("./images/send.png");
+        encriptarMensaje.setIcon(new ImageIcon(archivoImagen.getPath()));
+        encriptarMensaje.setBounds(20, 455, 100, 30);
         encriptarMensaje.setBackground(Color.green);
         subPanel1.add(encriptarMensaje);
         encriptarMensaje.addActionListener(this);
 
         solicitarCalificacion = new JButton("Solicitar");
-        solicitarCalificacion.setBounds(20, 270, 90, 20);
+        File archivoImagenCalificacion = new File("./images/updateTimeClock.png");
+        solicitarCalificacion.setIcon(new ImageIcon(archivoImagenCalificacion.getPath()));
+        solicitarCalificacion.setBounds(20, 275, 100, 30);
         solicitarCalificacion.setBackground(Color.green);
         subPanel1.add(solicitarCalificacion);
         solicitarCalificacion.addActionListener(this);
 
         desencriptarCalificacion = new JButton("Desencriptar");
-        desencriptarCalificacion.setBounds(20, 510, 110, 20);
+        File archivoImagenDesencripta = new File("./images/lockOpen.png");
+        desencriptarCalificacion.setIcon(new ImageIcon(archivoImagenDesencripta.getPath()));
+        desencriptarCalificacion.setBounds(20, 515, 130, 30);
         desencriptarCalificacion.setBackground(Color.green);
         subPanel1.add(desencriptarCalificacion);
         desencriptarCalificacion.addActionListener(this);
 
-        calificacion = new JLabel("Calificacion:");
-        calificacion.setBounds(20, 540, 200, 20);
-        subPanel1.add(calificacion);
-
         /* Aquí están los JTextField del alumno */
         
         textFieldNombreAlumno = new JTextField();
-        textFieldNombreAlumno.setBounds(130, 80, 170, 20);
+        textFieldNombreAlumno.setBounds(130, 80, 170, 25);
         subPanel1.add(textFieldNombreAlumno);
 
         textFieldLLavePublicaAlumno = new JTextField();
-        textFieldLLavePublicaAlumno.setBounds(130, 170, 170, 20);
+        textFieldLLavePublicaAlumno.setBounds(130, 180, 170, 25);
         subPanel1.add(textFieldLLavePublicaAlumno);
 
         textFieldLLavePrivadaAlumno = new JTextField();
-        textFieldLLavePrivadaAlumno.setBounds(130, 210, 170, 20);
+        textFieldLLavePrivadaAlumno.setBounds(130, 220, 170, 25);
         subPanel1.add(textFieldLLavePrivadaAlumno);
 
         textFieldCalificacionEncriptada = new JTextField();
-        textFieldCalificacionEncriptada.setBounds(180, 480, 170, 20);
+        textFieldCalificacionEncriptada.setBounds(180, 480, 170, 25);
         subPanel1.add(textFieldCalificacionEncriptada);
 
         textFieldCalificacion  = new JTextField();
-        textFieldCalificacion.setBounds(180, 540, 40, 20);
+        textFieldCalificacion.setBounds(180, 540, 40, 25);
         subPanel1.add(textFieldCalificacion);
 
     }
@@ -178,7 +193,8 @@ public class App extends JFrame implements ActionListener {
     public void sistemaEscolar() {
 
         subPanel2 = new JPanel();
-        subPanel2.setBorder(BorderFactory.createTitledBorder("Sistema"));
+        subPanel2.setBackground(Color.decode("#fefea2"));
+        subPanel2.setBorder(BorderFactory.createTitledBorder("Sistema Escolar"));
         subPanel2.setLayout(null);
 
         sistemaEscolar = new JLabel("1.- Identifica el alumno");
@@ -202,7 +218,7 @@ public class App extends JFrame implements ActionListener {
         sistemaEscolar.setBounds(20, 110, 200, 20);
         subPanel2.add(sistemaEscolar);
 
-        llavePublica = new JLabel("Llave publica:");
+        llavePublica = new JLabel("Llave p\u00fablica:");
         llavePublica.setBounds(20, 140, 200, 20);
         subPanel2.add(llavePublica);
 
@@ -214,26 +230,26 @@ public class App extends JFrame implements ActionListener {
         llavePrivada.setBounds(20, 220, 200, 20);
         subPanel2.add(llavePrivada);
 
-        llavePrivada = new JLabel("Calificacion a enviar:");
+        llavePrivada = new JLabel("Calificaci\u00f3n a enviar:");
         llavePrivada.setBounds(20, 260, 200, 20);
         subPanel2.add(llavePrivada);
 
         /* Aquí están los JTextField del servicio escolar */
         
         textFieldLLavePublicaServidor = new JTextField();
-        textFieldLLavePublicaServidor.setBounds(130, 140, 170, 20);
+        textFieldLLavePublicaServidor.setBounds(130, 140, 170, 25);
         subPanel2.add(textFieldLLavePublicaServidor);
 
         textFieldLLavePrivadaServidor = new JTextField();
-        textFieldLLavePrivadaServidor.setBounds(130, 180, 170, 20);
+        textFieldLLavePrivadaServidor.setBounds(130, 180, 170, 25);
         subPanel2.add(textFieldLLavePrivadaServidor);
 
         textFieldSolicitudServidor = new JTextField();
-        textFieldSolicitudServidor.setBounds(130, 220, 170, 20);
+        textFieldSolicitudServidor.setBounds(130, 220, 170, 25);
         subPanel2.add(textFieldSolicitudServidor);
 
         textFieldCalificacionAEnviarServidor = new JTextField();
-        textFieldCalificacionAEnviarServidor.setBounds(160, 260, 40, 20);
+        textFieldCalificacionAEnviarServidor.setBounds(160, 260, 40, 25);
         subPanel2.add(textFieldCalificacionAEnviarServidor);
 
     }
