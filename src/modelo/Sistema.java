@@ -18,6 +18,7 @@ public class Sistema {
     private FirmaDigital miFirma;
     //constructor
     public Sistema(CifradoRSA miCifrado){
+    	this.miFirma = new FirmaDigital();
         this.miCifradoRSA = miCifrado;
     }
     
@@ -45,6 +46,8 @@ public class Sistema {
     //funcion que lee el archivo y compara el alumno que llego con firma digital con los que tenemos en bd
     //en caso de ser un alumno entonces regresa el nombre del alumno y la calificacion correspondiente
     private String[] recuperarAlumnos(byte[] mensaje){
+    	System.out.println("longitud de mensaje: " + mensaje.length);
+    	int contador=0;
         File archivo = new File("C:/Users/crist/Documents/BUAP/Octavosemestre/AdmonRedes/proyecto/Proyecto-final-de-Administracion-de-Redes/src","calificaciones.txt");
         try{
         
@@ -58,26 +61,36 @@ public class Sistema {
         		String soloNombre = "";
         		//lo siguiente espara que podamos tener el nombre de un alumno sin su califiacion y aplicar la firma digital para comparar
         		for(int i=0;i<nombreCalificacion.length-1;i++) {
-        			if(i == nombreCalificacion.length-1) {
+        			if(i == nombreCalificacion.length-2) {
         				soloNombre = soloNombre + nombreCalificacion[i];
+        			}else {
+        				soloNombre = soloNombre + nombreCalificacion[i] + " ";
         			}
-        			soloNombre = soloNombre + nombreCalificacion[i] + " ";
         		}
         		//aplicamos la firma digital
+        		System.out.println(soloNombre);
         		miFirma.setMensaje(soloNombre);
         		miFirma.hash();
-        		//comparamos con el mensaje sin rsa que recibimos como parametro
-        		if( miFirma.getMensajeCodificado().equals(mensaje) ) {
+        		byte[] nombreDeArchivoConHash = miFirma.getMensajeCodificado();
+        		System.out.println("longitud del nombre desde archivo: " + nombreDeArchivoConHash.length);
+        		//comparamos
+        		for(int i=0;i<nombreDeArchivoConHash.length;i++) {
+        			if(nombreDeArchivoConHash[i] == mensaje[i]) {
+        				contador++;
+        			}
+        		}
+        		if(contador==mensaje.length) {
         			return nombreCalificacion;
         		}
         	}
         	return null;
 
         }catch(Exception err){
-        	System.out.println("Error de: " + err.getMessage());
+        	System.out.println("Error de lectura: " + err.getMessage());
         	return null;
     	}
     }
+    
     //metodos getter and setter
     public void setControlador(Controlador miControlador){
         this.miControlador = miControlador;

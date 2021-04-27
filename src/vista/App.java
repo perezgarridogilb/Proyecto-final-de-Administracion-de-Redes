@@ -145,6 +145,7 @@ public class App extends JFrame implements ActionListener {
         desencriptarCalificacion.setBounds(20, 510, 110, 20);
         desencriptarCalificacion.setBackground(Color.green);
         subPanel1.add(desencriptarCalificacion);
+        desencriptarCalificacion.addActionListener(this);
 
         calificacion = new JLabel("Calificacion:");
         calificacion.setBounds(20, 540, 200, 20);
@@ -293,6 +294,10 @@ public class App extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "No se generaron las llaves","Error llaves",JOptionPane.ERROR_MESSAGE);
         }else{
             //aqui debemos de poner las llaves en los text field
+        	this.textFieldLLavePrivadaAlumno.setText("" +llavePrivadaAlumno.getEncoded().toString());
+        	this.textFieldLLavePublicaAlumno.setText("" + llavePublicaAlumno.getEncoded().toString());
+        	this.textFieldLLavePublicaServidor.setText("" + llavePublicaSistema.getEncoded().toString());
+        	this.textFieldLLavePrivadaServidor.setText("" + llavePrivadaSistema.getEncoded().toString());
             JOptionPane.showMessageDialog(null, "Se generaron correctamente","Llaves listas",JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -321,9 +326,14 @@ public class App extends JFrame implements ActionListener {
     //metodo para enviar datos al sistema
     private void enviar(){
         String [] alumno = miControlador.enviar();
+        String nombre="";
         if(alumno != null) {
         	//debemos de poner la calificacion en el text field indicado y el nombre del alumno tambien lo debemos de poner en el text field
-        	
+        	this.textFieldCalificacionAEnviarServidor.setText("" + alumno[alumno.length-1]);
+        	for(int i=0;i<alumno.length-1;i++) {
+        		nombre = nombre + alumno[i];
+        	}
+        	this.textFieldSolicitudServidor.setText(nombre);
         	JOptionPane.showMessageDialog(null, "Ya puede solicitar calificacion","Calificacion lista",JOptionPane.INFORMATION_MESSAGE);
         }else {
         	//mostramos un erro
@@ -334,10 +344,10 @@ public class App extends JFrame implements ActionListener {
     //metodo para solicitar la calificacion desde nuestro sistema
     private void solicitar() {
     	//le pasamos la calificacion desde el text field que la vaya a contener
-    	byte[] calificacion = miControlador.solicitarCalificacion(textFieldLLavePublicaServidor.getText());
+    	byte[] calificacion = miControlador.solicitarCalificacion(this.textFieldCalificacionAEnviarServidor.getText());
     	if(calificacion != null) {
     		//debemos de poner la calificacion encriptada en el text field que corresponda
-    		
+    		this.textFieldCalificacionEncriptada.setText("" + calificacion.toString());
     		JOptionPane.showMessageDialog(null, "Puede desencriptarla","Calificacion",JOptionPane.INFORMATION_MESSAGE);
     	}else {
     		//mostramos mensaje de algun error
@@ -353,7 +363,8 @@ public class App extends JFrame implements ActionListener {
     	}
     	else {
     		//ponemos en text field la calificacion correspondiente
-    		
+    		String cal = new String(calDesencriptada);
+    		this.textFieldCalificacion.setText("" + cal);
     	}
     	
     }
