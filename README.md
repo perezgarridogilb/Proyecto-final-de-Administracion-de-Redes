@@ -1,6 +1,6 @@
-## Proyecto final de Administración de Redes
+# Proyecto final de Administración de Redes
 
-**Proyecto de Administración de redes.**
+![](https://img.shields.io/github/stars/perezgarridogilb/Proyecto-final-de-Administracion-de-Redes) ![](https://img.shields.io/github/forks/perezgarridogilb/Proyecto-final-de-Administracion-de-Redes) ![](https://img.shields.io/github/tag/perezgarridogilb/Proyecto-final-de-Administracion-de-Redes)
 
 Estimado estudiante, a continuación, se describe el proyecto que deberás desarrollar como parte final del curso de administración de redes. Se describe a modo de situarte en un contexto real. Tú eres el especialista en seguridad.
 
@@ -25,3 +25,11 @@ Finalmente, el estudiante recibirá su calificación, pero cifrada, el estudiant
 2. Reporte escrito (adjunto se encuentra el formato a seguir)
 
 Nota: Debes hacer pruebas con dos estudiantes diferentes.
+
+## Vista previa:
+
+<img width="882" alt="Captura de Pantalla 2021-10-27 a la(s) 10 27 49 p m" src="https://user-images.githubusercontent.com/56992179/139187846-caa299b0-6bef-4816-9d80-af9c8a16e451.png">
+
+##
+
+Copyright © Website 2021
